@@ -1,0 +1,67 @@
+---
+title: "Shiny Application and Reproducible Pitch"
+author: "Martin Slíva"
+date: "2018 M07 28"
+output: ioslides_presentation
+theme: "uulm"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Regresion on mtcars dataset
+
+Application displays chart which shows linear regression for mpg and choosen predictor. In the title of chrart there is printed the formula for regression line.
+
+The user can  chose a predictor form select box.
+
+The application uses standard mtcars dataset from R. 
+
+Server side application calculates the linear regression for outcome mpg and chosen predictor. 
+
+
+
+## Main function in server.R - code
+
+```{r , eval=FALSE, echo=TRUE}
+      output$distPlot <- renderPlot({
+    
+    # input from ui.R
+    j <- as.numeric(input$select)
+
+    model <- lm(mtcars[,i]~mtcars[,j])
+    Intercept <- model[[1]][1]
+    Slope <- model[[1]][2]
+    
+    plot(y=mtcars[,i], x=mtcars[,j], type="p",
+         xlab = a[j], ylab = a[i], 
+         main = paste(a[i]," = (", round(Intercept,3), ") + 
+                      (", round(Slope,3), ")*", a[j]), col="blue")
+    +abline(Intercept,Slope, col="red")
+
+  })
+
+```
+
+## Default chart in application
+
+```{r cars, echo = FALSE}
+    data("mtcars")
+    a <- names(mtcars)
+    i <- 1
+    j <- 2
+    model <- lm(mtcars[,i]~mtcars[,j])
+    Intercept <- model[[1]][1]
+    Slope <- model[[1]][2]
+    
+    plot(y=mtcars[,i], x=mtcars[,j], type="p", xlab = a[j], ylab = a[i], main = paste(a[i]," = (", round(Intercept,3), ") + (", round(Slope,3), ")*", a[j]), col="blue")+abline(Intercept,Slope, col="red")
+
+```
+
+## Links
+
+The link to app https://msliva.shinyapps.io/develdataprod/
+
+The link to GIT: https://github.com/martinsliva/coursera_ddp_final
+
