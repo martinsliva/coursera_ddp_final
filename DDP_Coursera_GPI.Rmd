@@ -1,0 +1,68 @@
+---
+title: "## Global Peace Index"
+subtitile: "Coursera Developing Data Products"
+author: "Martin Sliva"
+date: "2018 August 5"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Global Peace Index
+
+The Global Peace Index analyses the state of peace around the world as an attempt to measure the relative position of nations peacefulness. 
+
+__Exploratory goal:__ Have religions or religiosity any impact on peace?
+
+Data  used  
+*Global Peace Index* - which describes peacefulness of a country. Lower values means more peaceful country.  
+*Religion - religion* with most follower in country  
+*Religoisity* - measures how much is religion important for people in a country   
+
+Let's get those infromation together a explore what data tell us.
+
+
+
+## Peace index by religiosity 
+
+```{r  echo = FALSE, warning=FALSE, message=FALSE}
+library(plotly)
+
+
+index <- read.csv("gpi.csv")
+
+plot_ly(data = index,  x= ~Index, type = "box", color =  ~Religiosity, hoverinfo = 'text',
+text = ~paste('Country: ', Country,
+'</br></br> Index: ', Index,
+'</br> Ranking: ', Ranking,
+'</br> Religion: ', Religion))
+
+
+```
+
+## Peace index by majority religion
+```{r echo = FALSE, warning=FALSE, message=FALSE}
+
+plot_ly(data = index,  y= ~Index, x= ~Ranking, color = ~Religion, type= "scatter",mode="markers",  hoverinfo = 'text',
+text = ~paste('Country: ', Country,
+'</br></br> Index: ', Index,
+'</br> Ranking: ', Ranking,
+'</br> Religiosity: ', Religiosity))
+
+
+```
+
+
+## Explore the map
+
+Now, we have the first impression how Peaceful index is related to religion and religiosity.
+
+But we are talking about countries. I would be nice to see it on the map to get better imagination.
+
+So let's jump to my shine app: https://msliva.shinyapps.io/Global_Peace_Index/ (and please be patient - the first loading may take some time - 20 sec.)
+
+Enjoy your explorataion and make your own findings.
+
+Data sources are describes in tab "Description".
